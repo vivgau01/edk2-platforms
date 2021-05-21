@@ -1,7 +1,7 @@
 ## @file
 #  ACPI table data and ASL sources required to boot the platform.
 #
-#  Copyright (c) 2020-2021, Arm Ltd. All rights reserved.
+#  Copyright (c) 2020-2022, Arm Ltd. All rights reserved.
 #
 #  SPDX-License-Identifier: BSD-2-Clause-Patent
 #
@@ -59,6 +59,12 @@
   gArmSgiTokenSpaceGuid.PcdGtFrame1Gsiv
   gArmSgiTokenSpaceGuid.PcdOscLpiEnable
   gArmSgiTokenSpaceGuid.PcdOscCppcEnable
+  gArmSgiTokenSpaceGuid.PcdSmmuBase
+  gArmSgiTokenSpaceGuid.PcdSmmuEventGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuGErrorGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuPriGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuSyncGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuDevIDBase
   gArmSgiTokenSpaceGuid.PcdSp804DualTimerBaseAddress
   gArmSgiTokenSpaceGuid.PcdSp804DualTimerSize
   gArmSgiTokenSpaceGuid.PcdSp804DualTimerInterrupt

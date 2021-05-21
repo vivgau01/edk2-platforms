@@ -1,5 +1,5 @@
 #
-#  Copyright (c) 2018-2020, ARM Limited. All rights reserved.
+#  Copyright (c) 2018-2022, ARM Limited. All rights reserved.
 #
 #  SPDX-License-Identifier: BSD-2-Clause-Patent
 #
@@ -75,6 +75,11 @@
   # SMMU
   gArmSgiTokenSpaceGuid.PcdSmmuBase|0|UINT32|0x0000001D
   gArmSgiTokenSpaceGuid.PcdSmmuSize|0|UINT32|0x0000001E
+  gArmSgiTokenSpaceGuid.PcdSmmuEventGsiv|0|UINT32|0x00000027
+  gArmSgiTokenSpaceGuid.PcdSmmuGErrorGsiv|0|UINT32|0x00000028
+  gArmSgiTokenSpaceGuid.PcdSmmuPriGsiv|0|UINT32|0x00000029
+  gArmSgiTokenSpaceGuid.PcdSmmuSyncGsiv|0|UINT32|0x0000002A
+  gArmSgiTokenSpaceGuid.PcdSmmuDevIDBase|0|UINT32|0x0000002B
 
   # GPIO Controller
   gArmSgiTokenSpaceGuid.PcdGpioController0BaseAddress|0|UINT32|0x0000001F
