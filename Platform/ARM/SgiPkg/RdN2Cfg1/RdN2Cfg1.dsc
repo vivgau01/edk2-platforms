@@ -1,7 +1,7 @@
 ## @file
 #  Platform Description file for RD-N2-Cfg1 platform.
 #
-#  Copyright (c) 2017 - 2020, Arm Limited. All rights reserved.<BR>
+#  Copyright (c) 2017 - 2022, Arm Limited. All rights reserved.<BR>
 #
 #  SPDX-License-Identifier: BSD-2-Clause-Patent
 ##
@@ -46,6 +46,10 @@
   # ARM Cores and Clusters
   gArmPlatformTokenSpaceGuid.PcdCoreCount|1
   gArmPlatformTokenSpaceGuid.PcdClusterCount|8
+
+[PcdsFeatureFlag.common]
+  # IO virtualization block non-discoverable peripherals
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkNonDiscoverable|TRUE
 
 ################################################################################
 #

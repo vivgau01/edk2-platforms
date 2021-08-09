@@ -45,6 +45,10 @@
   gArmPlatformTokenSpaceGuid.PcdCoreCount|1
   gArmPlatformTokenSpaceGuid.PcdClusterCount|16
 
+[PcdsFeatureFlag.common]
+  # IO virtualization block non-discoverable peripherals
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkNonDiscoverable|TRUE
+
 ################################################################################
 #
 # Components Section - list of all EDK II Modules needed by this Platform

@@ -1,6 +1,6 @@
 /** @file
 *
-*  Copyright (c) 2018-2020, ARM Limited. All rights reserved.
+*  Copyright (c) 2018-2022, ARM Limited. All rights reserved.
 *
 *  SPDX-License-Identifier: BSD-2-Clause-Patent
 *
@@ -17,7 +17,8 @@
 
 // Total number of descriptors, including the final "end-of-table" descriptor.
 #define MAX_VIRTUAL_MEMORY_MAP_DESCRIPTORS                 \
-          (14 + (FixedPcdGet32 (PcdChipCount) * 2))
+          (14 + (FixedPcdGet32 (PcdChipCount) * 2)) +      \
+          (FeaturePcdGet (PcdIoVirtBlkNonDiscoverable) * 2)
 
 /**
   Returns the Virtual Memory Map of the platform.
@@ -170,6 +171,20 @@ ArmPlatformGetVirtualMemoryMap (
   VirtualMemoryTable[Index].VirtualBase     = FixedPcdGet64 (PcdSerialRegisterBase);
   VirtualMemoryTable[Index].Length          = SIZE_64KB;
   VirtualMemoryTable[Index].Attributes      = ARM_MEMORY_REGION_ATTRIBUTE_DEVICE;
+
+#if (FeaturePcdGet (PcdIoVirtBlkNonDiscoverable) == true)
+    // IO Virt Block x4_0: UART0
+    VirtualMemoryTable[++Index].PhysicalBase  = FixedPcdGet64 (PcdIoVirtBlkUart0Base);
+    VirtualMemoryTable[Index].VirtualBase     = FixedPcdGet64 (PcdIoVirtBlkUart0Base);;
+    VirtualMemoryTable[Index].Length          = SIZE_64KB;
+    VirtualMemoryTable[Index].Attributes      = ARM_MEMORY_REGION_ATTRIBUTE_DEVICE;
+
+    // IO Virt Block x8: UART1
+    VirtualMemoryTable[++Index].PhysicalBase  = FixedPcdGet64 (PcdIoVirtBlkUart1Base);
+    VirtualMemoryTable[Index].VirtualBase     = FixedPcdGet64 (PcdIoVirtBlkUart1Base);
+    VirtualMemoryTable[Index].Length          = SIZE_64KB;
+    VirtualMemoryTable[Index].Attributes      = ARM_MEMORY_REGION_ATTRIBUTE_DEVICE;
+#endif
 
   // DDR - (2GB - 16MB)
   VirtualMemoryTable[++Index].PhysicalBase  = PcdGet64 (PcdSystemMemoryBase);
