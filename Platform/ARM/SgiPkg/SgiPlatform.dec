@@ -95,5 +95,47 @@
   gArmSgiTokenSpaceGuid.PcdOscLpiEnable|0|UINT32|0x00000025
   gArmSgiTokenSpaceGuid.PcdOscCppcEnable|0|UINT32|0x00000026
 
+  # IO virtualization block PL011 UARTs
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Base|0|UINT64|0x0000002C
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0End|0|UINT64|0x0000002D
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Size|0|UINT64|0x0000002E
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Interrupt|0|UINT32|0x0000002F
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Base|0|UINT64|0x00000030
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1End|0|UINT64|0x00000031
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Size|0|UINT64|0x00000032
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Interrupt|0|UINT32|0x00000033
+
+  # IO virtualization block PL330 DMA controllers
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Base|0|UINT64|0x00000034
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0End|0|UINT64|0x00000035
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Size|0|UINT32|0x00000036
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0NumCh|0|UINT32|0x00000037
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch0Gsiv|0|UINT32|0x00000038
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch1Gsiv|0|UINT32|0x00000039
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch2Gsiv|0|UINT32|0x0000003A
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch3Gsiv|0|UINT32|0x0000003B
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch4Gsiv|0|UINT32|0x0000003C
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch5Gsiv|0|UINT32|0x0000003D
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch6Gsiv|0|UINT32|0x0000003E
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch7Gsiv|0|UINT32|0x0000003F
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0AbortGsiv|0|UINT32|0x00000040
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0StreamIDBase|0|UINT32|0x00000041
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Base|0|UINT64|0x00000042
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1End|0|UINT64|0x00000043
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Size|0|UINT32|0x00000044
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1NumCh|0|UINT32|0x00000045
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch0Gsiv|0|UINT32|0x00000046
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch1Gsiv|0|UINT32|0x00000047
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch2Gsiv|0|UINT32|0x00000048
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch3Gsiv|0|UINT32|0x00000049
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch4Gsiv|0|UINT32|0x0000004A
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch5Gsiv|0|UINT32|0x0000004B
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch6Gsiv|0|UINT32|0x0000004C
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch7Gsiv|0|UINT32|0x0000004D
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1AbortGsiv|0|UINT32|0x0000004E
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1StreamIDBase|0|UINT32|0x0000004F
+
 [Ppis]
   gNtFwConfigDtInfoPpiGuid     = { 0x6f606eb3, 0x9123, 0x4e15, { 0xa8, 0x9b, 0x0f, 0xac, 0x66, 0xef, 0xd0, 0x17 } }

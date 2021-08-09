@@ -1,7 +1,7 @@
 ## @file
 #  ACPI table data and ASL sources required to boot the platform.
 #
-#  Copyright (c) 2021, Arm Ltd. All rights reserved.
+#  Copyright (c) 2021-2022, Arm Ltd. All rights reserved.
 #
 #  SPDX-License-Identifier: BSD-2-Clause-Patent
 #
@@ -19,14 +19,13 @@
   Fadt.aslc
   Gtdt.aslc
   Iort.aslc
-  Mcfg.aslc
   RdN2Cfg1/Dsdt.asl
   RdN2Cfg1/Madt.aslc
   RdN2Cfg1/Pptt.aslc
   Spcr.aslc
-  Ssdt.asl
   SsdtRos.asl
   SsdtEvents.asl
+  SsdtNonPciIoVirtBlk.asl
 
 [Packages]
   ArmPkg/ArmPkg.dec
@@ -71,5 +70,45 @@
   gArmSgiTokenSpaceGuid.PcdVirtioNetInterrupt
   gArmSgiTokenSpaceGuid.PcdWdogWS0Gsiv
   gArmSgiTokenSpaceGuid.PcdWdogWS1Gsiv
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Base
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0End
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Size
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Interrupt
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Base
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1End
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Size
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Interrupt
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Base
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0End
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Size
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0NumCh
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch0Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch1Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch2Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch3Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch4Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch5Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch6Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch7Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0AbortGsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0StreamIDBase
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Base
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1End
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Size
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1NumCh
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch0Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch1Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch2Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch3Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch4Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch5Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch6Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch7Gsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1AbortGsiv
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1StreamIDBase
 
   gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress

@@ -65,3 +65,43 @@
   gArmSgiTokenSpaceGuid.PcdGpioController0BaseAddress|0x0C1D0000
   gArmSgiTokenSpaceGuid.PcdGpioController0Size|0x00010000
   gArmSgiTokenSpaceGuid.PcdGpioController0Interrupt|392
+
+  # IO virtualization block PL011 UARTs
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Base|0xC00000000000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0End|0xC0000000FFFF
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Size|0x10000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Interrupt|492
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Base|0xC00020000000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1End|0xC0002000FFFF
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Size|0x10000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart1Interrupt|502
+
+  # IO virtualization block PL330 DMA controllers
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Base|0xC00010000000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0End|0xC0001000FFFF
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Size|0x10000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0NumCh|8
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch0Gsiv|493
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch1Gsiv|494
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch2Gsiv|495
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch3Gsiv|496
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch4Gsiv|497
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch5Gsiv|498
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch6Gsiv|499
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0Ch7Gsiv|500
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma0AbortGsiv|501
+
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Base|0xC00030000000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1End|0xC0003000FFFF
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Size|0x10000
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1NumCh|8
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch0Gsiv|503
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch1Gsiv|504
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch2Gsiv|505
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch3Gsiv|506
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch4Gsiv|507
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch5Gsiv|508
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch6Gsiv|509
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch7Gsiv|510
+  gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1AbortGsiv|511
