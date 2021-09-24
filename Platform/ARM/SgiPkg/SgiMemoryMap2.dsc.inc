@@ -105,3 +105,9 @@
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch6Gsiv|509
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1Ch7Gsiv|510
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1AbortGsiv|511
+
+  # Base device IDs for x16/x8/x4_1/x4_0 ports
+  gArmSgiTokenSpaceGuid.PcdPciex16DevIDBase|0x30000
+  gArmSgiTokenSpaceGuid.PcdPciex8DevIDBase|0x20000
+  gArmSgiTokenSpaceGuid.PcdPciex41DevIDBase|0x10000
+  gArmSgiTokenSpaceGuid.PcdPciex40DevIDBase|0x00000

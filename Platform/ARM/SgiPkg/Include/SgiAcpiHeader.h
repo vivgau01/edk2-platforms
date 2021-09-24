@@ -1,6 +1,6 @@
 /** @file
 *
-*  Copyright (c) 2018-2021, ARM Limited. All rights reserved.
+*  Copyright (c) 2018-2022, ARM Limited. All rights reserved.
 *
 *  SPDX-License-Identifier: BSD-2-Clause-Patent
 *
@@ -10,6 +10,7 @@
 #define __SGI_ACPI_HEADER__
 
 #include <IndustryStandard/Acpi.h>
+#include <IndustryStandard/IoRemappingTable.h>
 
 //
 // ACPI table information used to initialize tables.
@@ -506,6 +507,200 @@ typedef struct {
     Domain,         /* Domain */                                               \
     0xFD,           /* Coord Type- SW_ANY */                                   \
     1               /* Processors */                                           \
+  }
+
+#pragma pack(1)
+typedef struct
+{
+  EFI_ACPI_6_0_IO_REMAPPING_ITS_NODE       ItsNode;
+  UINT32                                   ItsIdentifiers;
+} ARM_EFI_ACPI_6_0_IO_REMAPPING_ITS_NODE;
+
+typedef struct
+{
+  EFI_ACPI_6_0_IO_REMAPPING_SMMU3_NODE     SmmuNode;
+  EFI_ACPI_6_0_IO_REMAPPING_ID_TABLE       SmmuIdMap[3];
+} ARM_EFI_ACPI_6_0_IO_REMAPPING_SMMU3_NODE;
+
+typedef struct
+{
+  EFI_ACPI_6_0_IO_REMAPPING_NAMED_COMP_NODE  DmaNode;
+  CONST CHAR8                                Name[16];
+  EFI_ACPI_6_0_IO_REMAPPING_ID_TABLE         DmaIdMap[9];
+} ARM_EFI_ACPI_6_0_IO_REMAPPING_DMA_NC_NODE;
+#pragma pack ()
+
+/** Helper macro for ITS group node initialization for Arm Iort table.
+    See Table 12 of Arm IORT specification, version E.b.
+
+    @param [in] IoVirtBlkIdx      Index of IO virtualization block in which
+                                  the ITS block is present.
+**/
+#define EFI_ACPI_ITS_INIT(IoVirtBlkIdx)                                        \
+  /* ARM_EFI_ACPI_6_0_IO_REMAPPING_ITS_NODE */                                 \
+  {                                                                            \
+    /* EFI_ACPI_6_0_IO_REMAPPING_ITS_NODE */                                   \
+    {                                                                          \
+      /* EFI_ACPI_6_0_IO_REMAPPING_NODE */                                     \
+      {                                                                        \
+        EFI_ACPI_IORT_TYPE_ITS_GROUP,                     /* Type */           \
+        sizeof (ARM_EFI_ACPI_6_0_IO_REMAPPING_ITS_NODE),  /* Length */         \
+        1,                                                /* Revision */       \
+        0,                                                /* Identifier */     \
+        0,                                                /* NumIdMappings */  \
+        0,                                                /* IdReference */    \
+      },                                                                       \
+      1,                                                  /* ITS count */      \
+    },                                                                         \
+    IoVirtBlkIdx,                                   /* GIC ITS Identifiers */  \
+  }
+
+/** Helper macro for ID mapping table initialization of SMMUv3 IORT node.
+    See Table 4 of Arm IORT specification, version E.b.
+
+    @param [in] BaseStreamId    Starting ID in the range of StreamIDs allowed
+                                by SMMUv3. Since SMMUv3 doesn't offset input
+                                IDs, so InputBase and OutputBase are identical.
+
+    @param [in] NumIds          Number of StreamIDs in the StreamID range.
+**/
+#define EFI_ACPI_SMMUv3_ID_TABLE_INIT(BaseStreamId, NumIds)                    \
+   {                                                                           \
+     BaseStreamId,                             /* InputBase */                 \
+     NumIds,                                   /* NumIds */                    \
+     BaseStreamId,                             /* OutputBase */                \
+     OFFSET_OF (ARM_EFI_ACPI_6_0_IO_REMAPPING_TABLE,                           \
+       ItsNode),                               /* OutputReference */           \
+     0,                                        /* Flags */                     \
+   }
+
+// StreamID base for PL330 DMA0 controller
+#define DMA0_STREAM_ID_BASE                                                    \
+          FixedPcdGet32 (PcdPciex41DevIDBase) +                                \
+          FixedPcdGet32 (PcdIoVirtBlkDma0StreamIDBase)
+
+// StreamID base for PL330 DMA1 controller
+#define DMA1_STREAM_ID_BASE                                                    \
+          FixedPcdGet32 (PcdPciex16DevIDBase) +                                \
+          FixedPcdGet32 (PcdIoVirtBlkDma1StreamIDBase)
+
+/** Helper macro for SMMUv3 node initialization for Arm Iort table.
+    See Table 9 of Arm IORT specification, version E.b.
+
+    @param [in] IoVirtBlkIdx      Index of IO virtualization block in which
+                                  the SMMUv3 block is present.
+**/
+#define EFI_ACPI_SMMUv3_INIT(IoVirtBlkIdx)                                     \
+  /* ARM_EFI_ACPI_6_0_IO_REMAPPING_SMMU3_NODE */                               \
+  {                                                                            \
+    /* EFI_ACPI_6_0_IO_REMAPPING_SMMU3_NODE */                                 \
+    {                                                                          \
+      /* EFI_ACPI_6_0_IO_REMAPPING_NODE */                                     \
+      {                                                                        \
+        EFI_ACPI_IORT_TYPE_SMMUv3,                          /* Type */         \
+        sizeof (ARM_EFI_ACPI_6_0_IO_REMAPPING_SMMU3_NODE),  /* Length */       \
+        4,                                                  /* Revision */     \
+        0,                                                  /* Identifier */   \
+        3,                                                  /* NumIdMapping */ \
+        OFFSET_OF (ARM_EFI_ACPI_6_0_IO_REMAPPING_SMMU3_NODE,                   \
+          SmmuIdMap),                                       /* IdReference */  \
+      },                                                                       \
+      (FixedPcdGet32 (PcdSmmuBase) + (0x2000000 * IoVirtBlkIdx)),              \
+                                                      /* Base address */       \
+      EFI_ACPI_IORT_SMMUv3_FLAG_COHAC_OVERRIDE,       /* Flags */              \
+      0,                                              /* Reserved */           \
+      0x0,                                            /* VATOS address */      \
+      EFI_ACPI_IORT_SMMUv3_MODEL_GENERIC,             /* SMMUv3 Model */       \
+      FixedPcdGet32 (PcdSmmuEventGsiv),               /* Event */              \
+      FixedPcdGet32 (PcdSmmuPriGsiv),                 /* Pri */                \
+      FixedPcdGet32 (PcdSmmuGErrorGsiv),              /* Gerror */             \
+      FixedPcdGet32 (PcdSmmuSyncGsiv),                /* Sync */               \
+      0,                                              /* Proximity domain */   \
+      2,                                              /* DevIDMappingIndex */  \
+    },                                                                         \
+    /* EFI_ACPI_6_0_IO_REMAPPING_ID_TABLE */                                   \
+    {                                                                          \
+      EFI_ACPI_SMMUv3_ID_TABLE_INIT(DMA0_STREAM_ID_BASE,                       \
+        (FixedPcdGet32 (PcdIoVirtBlkDma0NumCh) + 1)),                          \
+      EFI_ACPI_SMMUv3_ID_TABLE_INIT(DMA1_STREAM_ID_BASE,                       \
+        (FixedPcdGet32 (PcdIoVirtBlkDma1NumCh) + 1)),                          \
+      {                                                                        \
+        0x0,                                         /* InputBase */           \
+        1,                                           /* NumIds */              \
+        FixedPcdGet32 (PcdSmmuDevIDBase),            /* OutputBase */          \
+        OFFSET_OF (ARM_EFI_ACPI_6_0_IO_REMAPPING_TABLE,                        \
+          ItsNode),                                  /* OutputReference */     \
+        EFI_ACPI_IORT_ID_MAPPING_FLAGS_SINGLE,       /* Flags */               \
+      },                                                                       \
+    },                                                                         \
+  }
+
+/** Helper macro for ID mapping table initialization of DMA Named Component
+    IORT node.
+    See Table 4 of Arm IORT specification, version E.b.
+    Output StreamID for a channel can be calculated as -
+    ((IDBase for x16/x8/x4_1/x4_0) + BaseSID of DMA controller) + Channel Idx).
+
+    @param [in] DmaIdx           Index of DMA pl330 controller connected to
+                                 a non-PCIe IO virtualization block.
+    @param [in] ChStreamIdx      Channel index within one DMA controller -
+                                 0 to 8.
+**/
+#define EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, ChStreamIdx)                     \
+  {                                                                            \
+    ChStreamIdx,                                    /* InputBase */            \
+    1,                                              /* NumIds */               \
+    DMA ##DmaIdx ## _STREAM_ID_BASE + ChStreamIdx,  /* OutputBase */           \
+    OFFSET_OF (ARM_EFI_ACPI_6_0_IO_REMAPPING_TABLE,                            \
+      SmmuNode),                                    /* OutputReference */      \
+    EFI_ACPI_IORT_ID_MAPPING_FLAGS_SINGLE,          /* Flags */                \
+  }
+
+/** Helper macro for DMA Named Component node initialization for Arm Iort
+    table.
+    See Table 13 of Arm IORT specification, version E.b.
+
+    @param [in] DmaIdx           Index of DMA pl330 controller connected to
+                                 a non-PCIe IO virtualization block.
+
+    @param [in] RefName          Device object name in the ACPI namespace.
+**/
+#define EFI_ACPI_DMA_NC_INIT(DmaIdx, RefName)                                  \
+  /* ARM_EFI_ACPI_6_0_IO_REMAPPING_DMA_NC_NODE */                              \
+  {                                                                            \
+    /* EFI_ACPI_6_0_IO_REMAPPING_NAMED_COMP_NODE */                            \
+    {                                                                          \
+      {                                                                        \
+        EFI_ACPI_IORT_TYPE_NAMED_COMP,            /* Type */                   \
+        sizeof (ARM_EFI_ACPI_6_0_IO_REMAPPING_DMA_NC_NODE),  /* Length */      \
+        4,                                        /* Revision */               \
+        0,                                        /* Identifier */             \
+        9,                                        /* NumIdMappings */          \
+        OFFSET_OF (ARM_EFI_ACPI_6_0_IO_REMAPPING_DMA_NC_NODE,                  \
+          DmaIdMap)                               /* IdReference */            \
+      },                                                                       \
+      0x0,                                        /* Flags */                  \
+      0x1,                                        /* CacheCoherent */          \
+      0x0,                                        /* AllocationHints */        \
+      0x0,                                        /* Reserved */               \
+      0x0,                                        /* MemoryAccessFlags */      \
+      0x30,                                       /* AddressSizeLimit */       \
+    },                                                                         \
+    {                                                                          \
+        RefName,                                                               \
+    },                                                                         \
+    /* ID mapping table */                                                     \
+    {                                                                          \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 0),  /* Data Channel - 0 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 1),  /* Data Channel - 1 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 2),  /* Data Channel - 2 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 3),  /* Data Channel - 3 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 4),  /* Data Channel - 4 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 5),  /* Data Channel - 5 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 6),  /* Data Channel - 6 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 7),  /* Data Channel - 7 */        \
+      EFI_ACPI_DMA_NC_ID_TABLE_INIT(DmaIdx, 8),  /* Instruction channel */     \
+    },                                                                         \
   }
 
 #endif /* __SGI_ACPI_HEADER__ */

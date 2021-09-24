@@ -138,5 +138,11 @@
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1AbortGsiv|0|UINT32|0x0000004E
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkDma1StreamIDBase|0|UINT32|0x0000004F
 
+  # Base Device IDs for ports on I/O virtualization block
+  gArmSgiTokenSpaceGuid.PcdPciex16DevIDBase|0|UINT64|0x00000051
+  gArmSgiTokenSpaceGuid.PcdPciex8DevIDBase|0|UINT64|0x00000052
+  gArmSgiTokenSpaceGuid.PcdPciex41DevIDBase|0|UINT64|0x00000053
+  gArmSgiTokenSpaceGuid.PcdPciex40DevIDBase|0|UINT64|0x00000054
+
 [Ppis]
   gNtFwConfigDtInfoPpiGuid     = { 0x6f606eb3, 0x9123, 0x4e15, { 0xa8, 0x9b, 0x0f, 0xac, 0x66, 0xef, 0xd0, 0x17 } }
