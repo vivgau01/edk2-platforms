@@ -18,8 +18,8 @@
   Dbg2.aslc
   Fadt.aslc
   Gtdt.aslc
-  Iort.aslc
   RdN2Cfg1/Dsdt.asl
+  RdN2Cfg1/IortNonPciIoVirtBlk.aslc
   RdN2Cfg1/Madt.aslc
   RdN2Cfg1/Pptt.aslc
   Spcr.aslc
@@ -59,6 +59,11 @@
   gArmSgiTokenSpaceGuid.PcdOscLpiEnable
   gArmSgiTokenSpaceGuid.PcdOscCppcEnable
   gArmSgiTokenSpaceGuid.PcdSmmuBase
+  gArmSgiTokenSpaceGuid.PcdSmmuEventGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuGErrorGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuPriGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuSyncGsiv
+  gArmSgiTokenSpaceGuid.PcdSmmuDevIDBase
   gArmSgiTokenSpaceGuid.PcdSp804DualTimerBaseAddress
   gArmSgiTokenSpaceGuid.PcdSp804DualTimerSize
   gArmSgiTokenSpaceGuid.PcdSp804DualTimerInterrupt
@@ -70,6 +75,11 @@
   gArmSgiTokenSpaceGuid.PcdVirtioNetInterrupt
   gArmSgiTokenSpaceGuid.PcdWdogWS0Gsiv
   gArmSgiTokenSpaceGuid.PcdWdogWS1Gsiv
+
+  gArmSgiTokenSpaceGuid.PcdPciex16DevIDBase
+  gArmSgiTokenSpaceGuid.PcdPciex8DevIDBase
+  gArmSgiTokenSpaceGuid.PcdPciex41DevIDBase
+  gArmSgiTokenSpaceGuid.PcdPciex40DevIDBase
 
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0Base
   gArmSgiTokenSpaceGuid.PcdIoVirtBlkUart0End
